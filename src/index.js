@@ -4,12 +4,13 @@ import { HashRouter as Router, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import Home from './components/Home';
-import Login from './components/Login';  
+import Login from './components/Login';
+import Profile from './components/Profile'; 
 import Register from './components/Register';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Router>
-<div><Route path="/Login" component={Login}/><Route exact path="/" component={App}/><Route exact path="/Register" component={Register}/></div>
+<div><Route path="/Login" component={Login}/><Route exact path="/" component={App}/><Route exact path="/Register" component={Register}/><Route path="/Profile" component={Profile}/></div>
 </Router>
 , document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change

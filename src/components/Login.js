@@ -3,20 +3,21 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { HashRouter as Router, Route, Link} from 'react-router-dom';
 import Register from './Register';
+import Profile from './Profile';
 import './Login.css';
 
-class Login extends Component {
+export default class Login extends Component {
     constructor(props){
       super(props);
-    this.state={email:",password:"};
+    this.state={username:'',password:''};
     this.handleChange=this.handleChange.bind(this);
     this.handleSubmit=this.handleSubmit.bind(this);
     }
     handleChange(event){
     
-    if (event.target.name === 'email'){
+    if (event.target.name === 'username'){
       
-      this.setState({ 'email': event.target.value });
+      this.setState({ 'username': event.target.value });
         }
         if (event.target.name === 'password') {
           this.setState({'password':event.target.value});
@@ -25,15 +26,17 @@ class Login extends Component {
     handleSubmit(event){
       event.preventDefault();
       var userDetails={
-        email:this.state.email,
+        username:this.state.username,
         password:this.state.password
       }
-      axios.post('http://localhost:3000/login',userDetails).then(res=>{
-        console.log(res.userDetails);
-        if (res.data.status === 'failed') {
-          alert('already registerd');
-        }else{
-          alert('success');
+      axios.post('http://10.90.90.61:3002/Login',userDetails).then(res=>{
+       
+        if (res.data.status === 'success') {
+        console.log(res.data)
+          this.props.history.push('/Profile')
+        }
+        else{
+          alert("notfound");
         }
       })
 
@@ -41,21 +44,16 @@ class Login extends Component {
   
 
   render() {
-    const { username, password, message } = this.state;
     return (
       <div class="container">
-        <form class="form-signin">
-          {message !== '' &&
-            <div class="alert alert-warning alert-dismissible" role="alert">
-              { message }
-            </div>
-          }
+        <form class="form-signin" method="post" onSubmit={this.handleSubmit}>
+         
           <h2 class="form-signin-heading">Please sign in</h2>
           <label for="inputEmail" class="sr-only">Email address</label>
-          <input type="email" class="form-control" placeholder="Email address" name="username" value={username} onChange={this.handleChange} required/>
+          <input type="email" class="form-control" placeholder="Email address" name="username" onChange={this.handleChange} required/>
           <label for="inputPassword" class="sr-only">Password</label>
-          <input type="password" class="form-control" placeholder="Password" name="password" value={password} onChange={this.handleChange} required/>
-          <button class="btn btn-lg btn-primary btn-block" type="submit" onSubmit={this.handleSubmit}>Login</button>
+          <input type="password" class="form-control" placeholder="Password" name="password"  onChange={this.handleChange} required/>
+          <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" />
           <p>
             Not a member? <Router><Link to="/register"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link></Router> <Route path="/Register" component={Register}></Route>
           </p>
@@ -65,5 +63,5 @@ class Login extends Component {
   }
 }
 
-export default Login;
+
   

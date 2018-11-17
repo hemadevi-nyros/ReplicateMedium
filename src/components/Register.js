@@ -24,7 +24,7 @@ class Register extends Component {
       UsernameofUser: event.target.value,
       PasswordofUser: event.target.value,
     });
-    axios.post('http://localhost:3000/register', {
+    axios.post('http://10.90.90.61:3002/#/register', {
         UsernameofUser: this.state.UsernameofUser,
         PasswordofUser: this.state.PasswordofUser,
       })
@@ -40,13 +40,11 @@ class Register extends Component {
     });
 };
   
-
-
   render() {
     const { username, password } = this.state;
     return (
       <div class="container">
-        <form class="form-signin">
+        <form class="form-signin" method="post" action="/register">
           <h2 class="form-signin-heading">Register</h2>
           <label for="inputEmail" class="sr-only">Email address</label>
           <input type="email" class="form-control" placeholder="Email address" name="UsernameofUSer" value={this.state.UsernameofUser} onChange={this.handleUsernameofUser} required/>
