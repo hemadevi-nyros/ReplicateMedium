@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 import { HashRouter as Router, Route, Link} from 'react-router-dom';
-import Register from './Register';
 import Profile from './Profile';
 import './Login.css';
 
@@ -54,9 +53,6 @@ export default class Login extends Component {
           <label for="inputPassword" class="sr-only">Password</label>
           <input type="password" class="form-control" placeholder="Password" name="password"  onChange={this.handleChange} required/>
           <input class="btn btn-lg btn-primary btn-block" type="submit" value="Login" />
-          <p>
-            Not a member? <Router><Link to="/register"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Register here</Link></Router> <Route path="/Register" component={Register}></Route>
-          </p>
         </form>
       </div>
     );

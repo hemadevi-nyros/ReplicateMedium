@@ -1,44 +1,111 @@
 import React, { Component } from 'react';
-import { HashRouter as Router, Route, Link} from 'react-router-dom';
+import axios from 'axios';
+import { HashRouter , NavLink } from 'react-router-dom';
+import { Card, CardImg, CardText, CardBody, CardTitle, Row, Col,Container } from 'reactstrap';
 
-import Login from './Login';
-export default class Home extends Component {
-	render() {
+class Home extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      stories:[],
+      resentPost:{},
+      rightPost:{},
+      middle:[]
+      
+    }
+
+    axios.post('http://10.90.90.61:3002/').then(res=>{
+
+      if(res.data.status === "success"){
+
+        this.setState({stories:res.data.story});
+       
+
+        for (var i = 0; i < res.data.story.length; i++) {
+          if(res.data.story.length === i + 2){
+            this.setState({ resentPost: res.data.story[i] })
+          }
+        }
+
+        for (var j = 0; j < res.data.story.length; j++) {
+          if(res.data.story.length === j + 1){
+            this.setState({ rightPost: res.data.story[j] })
+          }
+        }
+
+      }
+  
+    })
+
+    
+  }
+
+  render() {
+
+
+    var rowStyle={
+      padding:"10px"
+    }
+
+    var hrStyle={
+      backgroundColor:'black'
+    }
+    
+    const stories = this.state.stories.slice(6,9).map((d) => 
+
+            <Row style={rowStyle}>
+              <Col sm="4">
+                <img src="c.jpeg" height="100px" width="100px" alt="poster"/>
+              </Col>
+            </Row>
+
+      );
+
+      
+   
     return (
-     
-      <nav class="navbar navbar-default navbar-expand-lg navbar-fixed-top">
-           <div class="container-fluid">    
-               <div class="navbar-header">
-                   <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                      <span class="icon-bar"></span>
-                   </button> 
-               </div> 
-               <div class="container">
-                 <h2>Medium</h2>
-                 <Router><Link to='/Login'>Signin</Link></Router>
-               </div>
-               <ul class="nav navbar-nav"> 
-                    <li class="nav-item active"><a href="#">HOME</a></li>
-                    <li><a href="#">THE NEW NEW</a></li>
-                    <li><a href="#">CULTURE</a></li>
-                    <li><a href="#">TECH</a></li>
-                    <li><a href="#">STARTUPS</a></li>
-                    <li><a href="#">SELF</a></li>
-                    <li><a href="#">POLITICS</a></li>
-                    <li><a href="#">DESIGN</a></li>
-                    <li><a href="#">HEALTH</a></li>
-                    <li><a href="#">POPULAR</a></li>
-                    <li><a href="#">COLLECTIONS</a></li>
-                    <li><a href="#">MORE</a></li>
-               </ul>
-               <Route path="/Login" component={Login}></Route>
-          </div>
-       </nav>
+      <HashRouter>
+    <Container>
+        <Row>
+
+          <Col sm="4">
+            <Card>
+              <CardImg top width="100%" src="c.jpeg" alt="Card image cap" />
+              <CardBody>
+                <CardTitle>{this.state.rightPost.title}</CardTitle>
+                <CardText>{this.state.rightPost.description}</CardText>
+                
+              </CardBody>
+            </Card>
+          </Col>
+         
+          <Col sm="4">
+            
+            {stories}
+
+          </Col>
+          <Col sm="4">
+             <Card>
+              <CardImg top width="100%" src="c.jpeg" alt="Card image cap" />
+              <CardBody>
+                <CardTitle>{this.state.resentPost.title}</CardTitle>
+                <CardText>{this.state.resentPost.description}</CardText>
+               
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+
+      
+
+        <hr style={hrStyle}/>
+      </Container> 
+</HashRouter>
      
     );
   }
 }
 
-
+export default Home;
