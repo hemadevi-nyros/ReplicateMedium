@@ -19,7 +19,7 @@ class App extends Component {
            </div> 
            <div class="container">
                  <h2>Medium</h2>
-                 <Router><Link to='/Login'>Signin</Link></Router>
+                 <Router><Link to='/Login'><button type="button" class="btn btn-success">Signin</button></Link></Router>
            </div>
            <ul class="nav navbar-nav"> 
                     <li class="nav-item active"><a href="#">HOME</a></li>
@@ -36,6 +36,7 @@ class App extends Component {
                     <li><a href="#">MORE</a></li>
            </ul>
                <Route path="/Login" component={Login}></Route>
+               <Route path="/" component={Home}></Route>
           </div>
        </nav>
      

@@ -34,7 +34,7 @@ class Home extends Component {
             this.setState({ rightPost: res.data.story[j] })
           }
         }
-
+        
       }
   
     })
@@ -53,15 +53,19 @@ class Home extends Component {
       backgroundColor:'black'
     }
     
-    const stories = this.state.stories.slice(6,9).map((d) => 
+    const stories = this.state.stories.slice(1,3).map((d) => 
+      <Row style={rowStyle}>
+      <Col sm="4">
+       <img src="c.jpeg" height="100px" width="100px" alt="poster"/>
 
-            <Row style={rowStyle}>
-              <Col sm="4">
-                <img src="c.jpeg" height="100px" width="100px" alt="poster"/>
-              </Col>
-            </Row>
+      </Col>
+      <Col sm="8">
+        <p>{d.title,d.description}</p>
+     </Col>
+      </Row>
+           
 
-      );
+    );
 
       
    
@@ -76,7 +80,7 @@ class Home extends Component {
               <CardBody>
                 <CardTitle>{this.state.rightPost.title}</CardTitle>
                 <CardText>{this.state.rightPost.description}</CardText>
-                
+                <NavLink to={'/Story/'+ this.state.rightPost._id}>Read-more</NavLink>
               </CardBody>
             </Card>
           </Col>
@@ -88,11 +92,11 @@ class Home extends Component {
           </Col>
           <Col sm="4">
              <Card>
-              <CardImg top width="100%" src="c.jpeg" alt="Card image cap" />
+              <CardImg top width="100%" src="sample.jpg" alt="Card image cap" />
               <CardBody>
                 <CardTitle>{this.state.resentPost.title}</CardTitle>
                 <CardText>{this.state.resentPost.description}</CardText>
-               
+                <NavLink to={'/Story/'+ this.state.resentPost._id}>Read-more</NavLink>
               </CardBody>
             </Card>
           </Col>

@@ -70,7 +70,10 @@ story:data
 })
 
 })
-
+app.get('/logout', function(req, res) {
+        req.logout();
+        res.redirect('/');
+   });
 
 
 app.listen(3002, function () {

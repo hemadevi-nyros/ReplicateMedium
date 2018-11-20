@@ -49,6 +49,7 @@ alert('success');
    <div class="page-header text-center">
      <h1> Admin Page</h1>
    </div>
+  
     <form method="post"  onSubmit={this.handleSubmit}>
    <div class="container">
      <div class="formgroup">
@@ -95,7 +96,9 @@ alert('success');
        </div>
    </div>
    </div>
-   <input class="btn btn-primary btn-block" type="submit" value="Post" />
+   <div class="container">
+     <button type="button" class="btn btn-primary">Post</button>
+    </div>
    </form>
 </div>
 
